@@ -147,11 +147,12 @@ def create_app(test_config=None):
             new_answer = body.get('answer', None)
             new_category = body.get('category', None)
             new_difficulty = body.get('difficulty', None)
-
+            print('yes')
             if (new_question ==None) | (new_answer==None):
                 abort(400)
             else :
                 question = Question(question=new_question, answer=new_answer,category=new_category,difficulty=new_difficulty)
+                print(question.format())
                 question.insert()
                 questions = Question.query.order_by(Question.id).all()
                 current_questions = paginate_questions(request, questions)
@@ -163,7 +164,7 @@ def create_app(test_config=None):
                         'total_questions': len(current_questions),
                     })
         except Exception as e:
-            print(str(e))
+            print(e)
             abort(422)
     
 
